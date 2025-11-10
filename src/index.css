@@ -1,68 +1,56 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Overrides styles */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+.calendarWrapper {
+  height: calc(100vh - 40px);
+  width: calc(100vw - 40px);
+  padding: 20px;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  .rbc-month-view {
+    border: none;
   }
-  a:hover {
-    color: #747bff;
+
+
+  .rbc-header {
+    border: none !important;
+    border-left: none;
+
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #A3A6B4;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: 16px;
+    padding-bottom: 15px;
+    background-color: #F5F6FA;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .rbc-month-row {
+    border: none !important;
+  }
+
+  .rbc-day-bg {
+    background: #FFFFFF;
+    border: none !important;
+    border-right: 1px solid #EAF0F4 !important;
+    border-bottom: 1px solid #EAF0F4 !important;
+  }
+
+  .rbc-today {
+    background-color: #F5F6FA;
+  }
+
+  .rbc-date-cell {
+    padding-top: 17px;
+    padding-right: 15px;
+  }
+
+  .rbc-button-link {
+    color: #43425D;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
+  }
+
+  .rbc-off-range .rbc-button-link {
+    opacity: 0.3;
   }
 }

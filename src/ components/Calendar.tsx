@@ -30,8 +30,8 @@ export default function CalendarComponent() {
   const [events, setEvents] = useState<MyEvent[]>([
     {
       title: "Meeting with John",
-      start: new Date(2025, 10, 5, 10, 0),
-      end: new Date(2025, 10, 5, 11, 0),
+      start: new Date(2025, 10, 10, 10, 0),
+      end: new Date(2025, 10, 10, 11, 0),
     },
   ]);
 

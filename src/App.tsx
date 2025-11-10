@@ -1,15 +1,12 @@
 import CalendarComponent from "./ components/Calendar";
 import "./styles/fonts.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
+import "./index.css";
 
 function App() {
   return (
-    <div
-      style={{
-        height: "calc(100vh - 40px)",
-        width: "calc(100vw - 40px)",
-        padding: "20px",
-      }}
-    >
+    <div className="calendarWrapper">
       <CalendarComponent />
     </div>
   );
