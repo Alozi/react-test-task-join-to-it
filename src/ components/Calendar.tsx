@@ -8,6 +8,8 @@ import {
 } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import CustomToolbar from "./CustomToolbar";
+import { calendarFormats } from "../utils/calendarFormats";
 
 const localizer = momentLocalizer(moment);
 
@@ -17,7 +19,7 @@ interface MyEvent extends RBCEvent {
   end: Date;
 }
 
-function CalendarComponent() {
+export default function CalendarComponent() {
   const [view, setView] = useState<View>(Views.MONTH);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
@@ -51,24 +53,24 @@ function CalendarComponent() {
   };
 
   return (
-    <div style={{ height: "100vh", padding: "20px" }}>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        selectable
-        onSelectSlot={handleSelectSlot}
-        style={{ height: "100%" }}
-        views={["month", "week", "day", "agenda"]}
-        view={view}
-        onView={(newView) => setView(newView)}
-        defaultView={Views.MONTH}
-        date={currentDate}
-        onNavigate={handleNavigate}
-      />
-    </div>
+    <Calendar
+      localizer={localizer}
+      events={events}
+      startAccessor="start"
+      endAccessor="end"
+      selectable
+      onSelectSlot={handleSelectSlot}
+      style={{ height: "100%" }}
+      views={["month", "week", "day", "agenda"]}
+      view={view}
+      onView={(newView) => setView(newView)}
+      defaultView={Views.MONTH}
+      date={currentDate}
+      onNavigate={handleNavigate}
+      components={{
+        toolbar: CustomToolbar,
+      }}
+      formats={calendarFormats}
+    />
   );
 }
-
-export default CalendarComponent;
