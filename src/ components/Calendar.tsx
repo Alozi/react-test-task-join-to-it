@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   Calendar,
   momentLocalizer,
@@ -13,6 +13,11 @@ import CustomToolbar from "./CustomToolbar";
 import { calendarFormats } from "../utils/calendarFormats";
 import EventModal from "./EventModal";
 
+import withDragAndDrop, {
+  type EventInteractionArgs,
+} from "react-big-calendar/lib/addons/dragAndDrop";
+
+const DragAndDropCalendar = withDragAndDrop<Event, object>(Calendar);
 const localizer = momentLocalizer(moment);
 
 export default function CalendarComponent() {
@@ -70,11 +75,48 @@ export default function CalendarComponent() {
     setEvents(events.filter((e) => e.id !== id));
   }
 
+  const moveEvent = useCallback(
+    ({ event, start, end }: EventInteractionArgs<Event>) => {
+      setEvents((prev) =>
+        prev.map((e) =>
+          e.id === event.id
+            ? {
+                ...e,
+                start: start instanceof Date ? start : new Date(start),
+                end: end instanceof Date ? end : new Date(end),
+              }
+            : e
+        )
+      );
+    },
+    [setEvents]
+  );
+
+  const resizeEvent = useCallback(
+    ({ event, start, end }: EventInteractionArgs<Event>) => {
+      setEvents((prev) =>
+        prev.map((e) =>
+          e.id === event.id
+            ? {
+                ...e,
+                start: start instanceof Date ? start : new Date(start),
+                end: end instanceof Date ? end : new Date(end),
+              }
+            : e
+        )
+      );
+    },
+    [setEvents]
+  );
+
   return (
     <>
-      <Calendar
+      <DragAndDropCalendar
         localizer={localizer}
         events={events}
+        onEventDrop={moveEvent}
+        onEventResize={resizeEvent}
+        resizable
         startAccessor="start"
         endAccessor="end"
         selectable
