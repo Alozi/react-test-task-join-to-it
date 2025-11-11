@@ -1,13 +1,16 @@
 import type { ToolbarProps, View } from "react-big-calendar";
 import styles from "./CustomToolbar.module.css";
+import { type Event } from "../../types/event";
 
-export default function CustomToolbar(toolbar: ToolbarProps) {
-  const goToBack = () => toolbar.onNavigate("PREV");
-  const goToNext = () => toolbar.onNavigate("NEXT");
-  const goToToday = () => toolbar.onNavigate("TODAY");
+export default function CustomToolbar(props: ToolbarProps<Event, object>) {
+  const { label, onNavigate, onView } = props;
+
+  const goToBack = () => onNavigate("PREV");
+  const goToNext = () => onNavigate("NEXT");
+  const goToToday = () => onNavigate("TODAY");
 
   const setView = (view: View) => {
-    toolbar.onView(view);
+    onView(view);
   };
 
   return (
@@ -29,7 +32,7 @@ export default function CustomToolbar(toolbar: ToolbarProps) {
           <button onClick={goToNext}>Next</button>
         </nav>
 
-        <h2>{toolbar.label}</h2>
+        <h2>{label}</h2>
       </div>
     </header>
   );

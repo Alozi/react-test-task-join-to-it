@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./EventModal.module.css";
+import { type Event } from "../../types/event";
 
 type EventModalProps = {
   isOpen: boolean;
@@ -13,6 +14,8 @@ type EventModalProps = {
   }) => void;
   position: { x: number | undefined; y: number | undefined };
   defaultDate?: Date;
+  defaultEvent: Event | null;
+  onDelete: (id: number) => void;
 };
 
 export default function EventModal({
@@ -21,6 +24,8 @@ export default function EventModal({
   onSave,
   defaultDate,
   position,
+  defaultEvent,
+  onDelete,
 }: EventModalProps) {
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("#3B86FF");
@@ -28,27 +33,45 @@ export default function EventModal({
   const [end, setEnd] = useState(new Date());
 
   useEffect(() => {
-    if (defaultDate) {
+    if (defaultEvent) {
+      setTitle(defaultEvent.title);
+      setStart(defaultEvent.start);
+      setEnd(defaultEvent.end);
+      setColor(defaultEvent.color || "#3B86FF");
+    } else if (defaultDate) {
       setStart(defaultDate);
       setEnd(defaultDate);
     }
-  }, [defaultDate]);
+  }, [defaultEvent, defaultDate]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (title.trim() === "" || title.length > 30) return;
-    const id = Date.now();
-    onSave({ id, title, start, end, color });
+
+    if (defaultEvent) {
+      onSave({ id: defaultEvent.id, title, start, end, color });
+    } else {
+      const id = Date.now();
+      onSave({ id, title, start, end, color });
+    }
 
     resetForm();
     onClose();
-  };
+  }
 
   function handleClose() {
     resetForm();
     onClose();
+  }
+
+  function handleDelete() {
+    if (defaultEvent?.id != null) {
+      onDelete(defaultEvent.id);
+      resetForm();
+      onClose();
+    }
   }
 
   function resetForm() {
@@ -125,9 +148,15 @@ export default function EventModal({
           </label>
 
           <div className={styles.actions}>
-            <button type="button" onClick={handleClose}>
-              Cancel
-            </button>
+            {defaultEvent ? (
+              <button type="button" onClick={handleDelete}>
+                Delete
+              </button>
+            ) : (
+              <button type="button" onClick={handleClose}>
+                Cancel
+              </button>
+            )}
             <button type="submit">Save</button>
           </div>
         </form>

@@ -4,9 +4,9 @@ import {
   momentLocalizer,
   Views,
   type View,
-  type Event as RBCEvent,
   type SlotInfo,
 } from "react-big-calendar";
+import { type Event } from "../types/event";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import CustomToolbar from "./CustomToolbar";
@@ -15,16 +15,8 @@ import EventModal from "./EventModal";
 
 const localizer = momentLocalizer(moment);
 
-interface MyEvent extends RBCEvent {
-  id: number;
-  title: string;
-  start: Date;
-  end: Date;
-  color: string;
-}
-
 export default function CalendarComponent() {
-  const [events, setEvents] = useState<MyEvent[]>([
+  const [events, setEvents] = useState<Event[]>([
     {
       id: Date.now(),
       title: "Meeting with John",
@@ -41,6 +33,7 @@ export default function CalendarComponent() {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<Date | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
   const [modalPosition, setModalPosition] = useState<{
     x: number | undefined;
@@ -56,12 +49,25 @@ export default function CalendarComponent() {
     setIsModalOpen(true);
   }
 
-  function handleAddEvent(newEvent: MyEvent) {
-    setEvents((prev) => [...prev, newEvent]);
+  function handleAddEvent(event: Event) {
+    setEvents((prev) =>
+      prev.some((e) => e.id === event.id)
+        ? prev.map((e) => (e.id === event.id ? event : e))
+        : [...prev, event]
+    );
   }
 
   function handleNavigate(date: Date) {
     setCurrentDate(date);
+  }
+
+  function handleSelectEvent(event: Event) {
+    setSelectedEvent(event);
+    setIsModalOpen(true);
+  }
+
+  function handleDeleteEvent(id: number) {
+    setEvents(events.filter((e) => e.id !== id));
   }
 
   return (
@@ -73,6 +79,7 @@ export default function CalendarComponent() {
         endAccessor="end"
         selectable
         onSelectSlot={handleSelectSlot}
+        onSelectEvent={handleSelectEvent}
         style={{ height: "100%" }}
         views={["month", "week", "day", "agenda"]}
         view={view}
@@ -96,10 +103,15 @@ export default function CalendarComponent() {
       />
       <EventModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedEvent(null);
+        }}
         onSave={handleAddEvent}
         defaultDate={selectedSlot || undefined}
         position={modalPosition}
+        defaultEvent={selectedEvent}
+        onDelete={handleDeleteEvent}
       />
     </>
   );
