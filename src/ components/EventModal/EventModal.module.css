@@ -1,0 +1,71 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+}
+
+.modal {
+    border: 1px solid #43425D;
+    background: white;
+    border-radius: 10px;
+    padding: 22px 26px 25px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 18px #00000029;
+    width: 201px;
+    color: #D6D6D6;
+
+    label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 12px;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    input {
+        margin-top: 6px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    .color {
+        flex-direction: row;
+        gap: 5px;
+        align-items: center;
+
+        div {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+        }
+
+        input {
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+        }
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 37.5px;
+
+        button {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            color: #6A6996;
+        }
+
+        button[type="button"] {
+            color: #FF5F5F;
+        }
+    }
+}
