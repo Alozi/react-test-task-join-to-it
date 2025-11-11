@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import {
   Calendar,
   momentLocalizer,
@@ -13,26 +13,15 @@ import CustomToolbar from "./CustomToolbar";
 import { calendarFormats } from "../utils/calendarFormats";
 import EventModal from "./EventModal";
 
-import withDragAndDrop, {
-  type EventInteractionArgs,
-} from "react-big-calendar/lib/addons/dragAndDrop";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import { useCalendarEvents } from "../hooks/useCalendarEvents";
 
 const DragAndDropCalendar = withDragAndDrop<Event, object>(Calendar);
 const localizer = momentLocalizer(moment);
 
 export default function CalendarComponent() {
-  const [events, setEvents] = useState<Event[]>([
-    {
-      id: Date.now(),
-      title: "Meeting with John",
-      start: new Date(2025, 10, 10, 10, 0),
-      end: new Date(2025, 10, 10, 11, 0),
-      color: "#3B86FF",
-    },
-  ]);
-
-  console.log("events");
-  console.log(events);
+  const { events, handleAddEvent, handleDeleteEvent, moveEvent } =
+    useCalendarEvents();
 
   const [view, setView] = useState<View>(Views.MONTH);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
@@ -61,18 +50,6 @@ export default function CalendarComponent() {
     []
   );
 
-  function handleAddEvent(event: Event) {
-    setEvents((prev) =>
-      prev.some((e) => e.id === event.id)
-        ? prev.map((e) => (e.id === event.id ? event : e))
-        : [...prev, event]
-    );
-  }
-
-  function handleDeleteEvent(id: number) {
-    setEvents(events.filter((e) => e.id !== id));
-  }
-
   const handleSelectSlot = useCallback((slotInfo: SlotInfo) => {
     setSelectedSlot(slotInfo.start);
     setModalPosition({ x: slotInfo.box?.clientX, y: slotInfo.box?.clientY });
@@ -88,48 +65,12 @@ export default function CalendarComponent() {
 
   const onViewChange = useCallback((newView: View) => setView(newView), []);
 
-  const moveEvent = useCallback(
-    ({ event, start, end }: EventInteractionArgs<Event>) => {
-      setEvents((prev) =>
-        prev.map((e) =>
-          e.id === event.id
-            ? {
-                ...e,
-                start: start instanceof Date ? start : new Date(start),
-                end: end instanceof Date ? end : new Date(end),
-              }
-            : e
-        )
-      );
-    },
-    [setEvents]
-  );
-
-  const resizeEvent = useCallback(
-    ({ event, start, end }: EventInteractionArgs<Event>) => {
-      setEvents((prev) =>
-        prev.map((e) =>
-          e.id === event.id
-            ? {
-                ...e,
-                start: start instanceof Date ? start : new Date(start),
-                end: end instanceof Date ? end : new Date(end),
-              }
-            : e
-        )
-      );
-    },
-    [setEvents]
-  );
-
   return (
     <>
       <DragAndDropCalendar
         localizer={localizer}
         events={events}
         onEventDrop={moveEvent}
-        onEventResize={resizeEvent}
-        resizable
         startAccessor="start"
         endAccessor="end"
         selectable
