@@ -6,8 +6,7 @@
   padding: 20px;
 
   .rbc-month-view {
-    border: none;
-
+    border: 1px solid #EAF0F4;
 
     .rbc-header {
       border: none !important;
@@ -54,4 +53,64 @@
     }
   }
 
+  .rbc-time-view {
+    border: 1px solid #EAF0F4;
+
+    .rbc-row {
+      min-height: auto;
+    }
+
+    .rbc-time-header-content,
+    .rbc-time-content {
+      border: none;
+    }
+
+    .rbc-label.rbc-time-header-gutter {
+      background-color: #F5F6FA;
+      border: none;
+    }
+
+    .rbc-header {
+      border: none !important;
+      border-left: none;
+      font-family: 'Source Sans Pro', sans-serif;
+      color: #A3A6B4;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding-top: 16px;
+      padding-bottom: 15px;
+      background-color: #F5F6FA;
+    }
+
+    .rbc-button-link {
+      font-weight: bold;
+    }
+
+    .rbc-time-gutter .rbc-time-slot {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 13px;
+      color: #4D4F5C;
+    }
+
+    .rbc-timeslot-group {
+      border-color: #EAF0F4;
+    }
+
+    .rbc-time-slot {
+      border: none;
+    }
+
+    .rbc-today {
+      background-color: #F5F6FA;
+    }
+
+    .rbc-event-label,
+    .rbc-event-content {
+      font-size: 13px;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: 400;
+      color: #FFFFFF;
+    }
+  }
 }
