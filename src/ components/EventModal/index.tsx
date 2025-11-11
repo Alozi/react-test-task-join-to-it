@@ -5,6 +5,7 @@ type EventModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onSave: (event: {
+    id: number;
     title: string;
     start: Date;
     end: Date;
@@ -38,7 +39,8 @@ export default function EventModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (title.trim() === "" || title.length > 30) return;
-    onSave({ title, start, end, color });
+    const id = Date.now();
+    onSave({ id, title, start, end, color });
 
     resetForm();
     onClose();

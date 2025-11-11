@@ -16,6 +16,7 @@ import EventModal from "./EventModal";
 const localizer = momentLocalizer(moment);
 
 interface MyEvent extends RBCEvent {
+  id: number;
   title: string;
   start: Date;
   end: Date;
@@ -23,9 +24,21 @@ interface MyEvent extends RBCEvent {
 }
 
 export default function CalendarComponent() {
+  const [events, setEvents] = useState<MyEvent[]>([
+    {
+      id: Date.now(),
+      title: "Meeting with John",
+      start: new Date(2025, 10, 10, 10, 0),
+      end: new Date(2025, 10, 10, 11, 0),
+      color: "#3B86FF",
+    },
+  ]);
+
+  console.log("events");
+  console.log(events);
+
   const [view, setView] = useState<View>(Views.MONTH);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<Date | null>(null);
 
@@ -37,28 +50,19 @@ export default function CalendarComponent() {
     y: 0,
   });
 
-  const handleSelectSlot = (slotInfo: SlotInfo) => {
+  function handleSelectSlot(slotInfo: SlotInfo) {
     setSelectedSlot(slotInfo.start);
     setModalPosition({ x: slotInfo.box?.clientX, y: slotInfo.box?.clientY });
     setIsModalOpen(true);
-  };
+  }
 
-  const handleAddEvent = (newEvent: MyEvent) => {
+  function handleAddEvent(newEvent: MyEvent) {
     setEvents((prev) => [...prev, newEvent]);
-  };
+  }
 
-  const handleNavigate = (date: Date) => {
+  function handleNavigate(date: Date) {
     setCurrentDate(date);
-  };
-
-  const [events, setEvents] = useState<MyEvent[]>([
-    {
-      title: "Meeting with John",
-      start: new Date(2025, 10, 10, 10, 0),
-      end: new Date(2025, 10, 10, 11, 0),
-      color: "#3B86FF",
-    },
-  ]);
+  }
 
   return (
     <>
