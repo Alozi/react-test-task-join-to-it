@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import {
   Calendar,
   momentLocalizer,
@@ -48,11 +48,18 @@ export default function CalendarComponent() {
     y: 0,
   });
 
-  function handleSelectSlot(slotInfo: SlotInfo) {
-    setSelectedSlot(slotInfo.start);
-    setModalPosition({ x: slotInfo.box?.clientX, y: slotInfo.box?.clientY });
-    setIsModalOpen(true);
-  }
+  const eventPropGetter = useCallback(
+    (event: Event) => ({
+      style: {
+        backgroundColor: event.color || "#3B86FF",
+        borderRadius: "4px",
+        color: "#fff",
+        border: "none",
+        display: "block",
+      },
+    }),
+    []
+  );
 
   function handleAddEvent(event: Event) {
     setEvents((prev) =>
@@ -62,18 +69,24 @@ export default function CalendarComponent() {
     );
   }
 
-  function handleNavigate(date: Date) {
-    setCurrentDate(date);
-  }
-
-  function handleSelectEvent(event: Event) {
-    setSelectedEvent(event);
-    setIsModalOpen(true);
-  }
-
   function handleDeleteEvent(id: number) {
     setEvents(events.filter((e) => e.id !== id));
   }
+
+  const handleSelectSlot = useCallback((slotInfo: SlotInfo) => {
+    setSelectedSlot(slotInfo.start);
+    setModalPosition({ x: slotInfo.box?.clientX, y: slotInfo.box?.clientY });
+    setIsModalOpen(true);
+  }, []);
+
+  const handleSelectEvent = useCallback((event: Event) => {
+    setSelectedEvent(event);
+    setIsModalOpen(true);
+  }, []);
+
+  const handleNavigate = useCallback((date: Date) => setCurrentDate(date), []);
+
+  const onViewChange = useCallback((newView: View) => setView(newView), []);
 
   const moveEvent = useCallback(
     ({ event, start, end }: EventInteractionArgs<Event>) => {
@@ -125,7 +138,7 @@ export default function CalendarComponent() {
         style={{ height: "100%" }}
         views={["month", "week", "day", "agenda"]}
         view={view}
-        onView={(newView) => setView(newView)}
+        onView={onViewChange}
         defaultView={Views.MONTH}
         date={currentDate}
         onNavigate={handleNavigate}
@@ -133,15 +146,7 @@ export default function CalendarComponent() {
           toolbar: CustomToolbar,
         }}
         formats={calendarFormats}
-        eventPropGetter={(event) => ({
-          style: {
-            backgroundColor: event.color || "#3B86FF",
-            borderRadius: "4px",
-            color: "#fff",
-            border: "none",
-            display: "block",
-          },
-        })}
+        eventPropGetter={eventPropGetter}
       />
       <EventModal
         isOpen={isModalOpen}
