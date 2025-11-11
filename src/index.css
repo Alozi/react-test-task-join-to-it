@@ -7,50 +7,51 @@
 
   .rbc-month-view {
     border: none;
+
+
+    .rbc-header {
+      border: none !important;
+      border-left: none;
+
+      font-family: 'Source Sans Pro', sans-serif;
+      color: #A3A6B4;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding-top: 16px;
+      padding-bottom: 15px;
+      background-color: #F5F6FA;
+    }
+
+    .rbc-month-row {
+      border: none !important;
+    }
+
+    .rbc-day-bg {
+      background: #FFFFFF;
+      border: none !important;
+      border-right: 1px solid #EAF0F4 !important;
+      border-bottom: 1px solid #EAF0F4 !important;
+    }
+
+    .rbc-today {
+      background-color: #F5F6FA;
+    }
+
+    .rbc-date-cell {
+      padding-top: 17px;
+      padding-right: 15px;
+    }
+
+    .rbc-button-link {
+      color: #43425D;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 15px;
+    }
+
+    .rbc-off-range .rbc-button-link {
+      opacity: 0.3;
+    }
   }
 
-
-  .rbc-header {
-    border: none !important;
-    border-left: none;
-
-    font-family: 'Source Sans Pro', sans-serif;
-    color: #A3A6B4;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding-top: 16px;
-    padding-bottom: 15px;
-    background-color: #F5F6FA;
-  }
-
-  .rbc-month-row {
-    border: none !important;
-  }
-
-  .rbc-day-bg {
-    background: #FFFFFF;
-    border: none !important;
-    border-right: 1px solid #EAF0F4 !important;
-    border-bottom: 1px solid #EAF0F4 !important;
-  }
-
-  .rbc-today {
-    background-color: #F5F6FA;
-  }
-
-  .rbc-date-cell {
-    padding-top: 17px;
-    padding-right: 15px;
-  }
-
-  .rbc-button-link {
-    color: #43425D;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 15px;
-  }
-
-  .rbc-off-range .rbc-button-link {
-    opacity: 0.3;
-  }
 }
