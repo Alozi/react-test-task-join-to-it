@@ -29,13 +29,13 @@ export default function CalendarComponent() {
   const [selectedSlot, setSelectedSlot] = useState<Date | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
-  const [modalPosition, setModalPosition] = useState<{
-    x: number | undefined;
-    y: number | undefined;
-  }>({
-    x: 0,
-    y: 0,
-  });
+  // const [modalPosition, setModalPosition] = useState<{
+  //   x: number | undefined;
+  //   y: number | undefined;
+  // }>({
+  //   x: 0,
+  //   y: 0,
+  // });
 
   const eventPropGetter = useCallback(
     (event: Event) => ({
@@ -52,7 +52,7 @@ export default function CalendarComponent() {
 
   const handleSelectSlot = useCallback((slotInfo: SlotInfo) => {
     setSelectedSlot(slotInfo.start);
-    setModalPosition({ x: slotInfo.box?.clientX, y: slotInfo.box?.clientY });
+    // setModalPosition({ x: slotInfo.box?.clientX, y: slotInfo.box?.clientY });
     setIsModalOpen(true);
   }, []);
 
@@ -97,7 +97,7 @@ export default function CalendarComponent() {
         }}
         onSave={handleAddEvent}
         defaultDate={selectedSlot || undefined}
-        position={modalPosition}
+        // position={modalPosition}
         defaultEvent={selectedEvent}
         onDelete={handleDeleteEvent}
       />

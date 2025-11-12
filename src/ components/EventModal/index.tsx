@@ -12,7 +12,7 @@ type EventModalProps = {
     end: Date;
     color: string;
   }) => void;
-  position: { x: number | undefined; y: number | undefined };
+  // position: { x: number | undefined; y: number | undefined };
   defaultDate?: Date;
   defaultEvent: Event | null;
   onDelete: (id: number) => void;
@@ -23,7 +23,7 @@ export default function EventModal({
   onClose,
   onSave,
   defaultDate,
-  position,
+  // position,
   defaultEvent,
   onDelete,
 }: EventModalProps) {
@@ -96,11 +96,11 @@ export default function EventModal({
       <div
         className={styles.modal}
         onClick={(e) => e.stopPropagation()}
-        style={{
-          position: "absolute",
-          left: position.x,
-          top: position.y,
-        }}
+        // style={{
+        //   position: "absolute",
+        //   left: position.x,
+        //   top: position.y,
+        // }}
       >
         <form onSubmit={handleSubmit}>
           <label>
