@@ -9,6 +9,10 @@
         }
     }
 
+    .active {
+        color: #3B86FF;
+    }
+
     button {
         border: 1px solid #D7DAE2;
         background-color: #FFFFFF;

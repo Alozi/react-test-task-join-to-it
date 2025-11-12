@@ -3,7 +3,7 @@ import styles from "./CustomToolbar.module.css";
 import { type Event } from "../../types/event";
 
 export default function CustomToolbar(props: ToolbarProps<Event, object>) {
-  const { label, onNavigate, onView } = props;
+  const { label, onNavigate, onView, view } = props;
 
   const goToBack = () => onNavigate("PREV");
   const goToNext = () => onNavigate("NEXT");
@@ -18,10 +18,30 @@ export default function CustomToolbar(props: ToolbarProps<Event, object>) {
       <div className={styles.toolbarTop}>
         <h1>Calendar View</h1>
         <nav>
-          <button onClick={() => setView("month")}>Month</button>
-          <button onClick={() => setView("week")}>Week</button>
-          <button onClick={() => setView("day")}>Day</button>
-          <button onClick={() => setView("agenda")}>Agenda</button>
+          <button
+            className={view === "month" ? styles.active : ""}
+            onClick={() => setView("month")}
+          >
+            Month
+          </button>
+          <button
+            className={view === "week" ? styles.active : ""}
+            onClick={() => setView("week")}
+          >
+            Week
+          </button>
+          <button
+            className={view === "day" ? styles.active : ""}
+            onClick={() => setView("day")}
+          >
+            Day
+          </button>
+          <button
+            className={view === "agenda" ? styles.active : ""}
+            onClick={() => setView("agenda")}
+          >
+            Agenda
+          </button>
         </nav>
       </div>
 
