@@ -1,73 +1,50 @@
-# React + TypeScript + Vite
+# React JS test task for Join.To.IT company
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I completed a test task which required creating a calendar with the ability to add events. I built the application using React, TypeScript, and react-big-calendar. Users can add, edit, delete, and drag-and-drop events. The project also includes a custom toolbar and a modal for managing events.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Full calendar view (Month, Week, Day, Agenda)
+- Custom toolbar with navigation and view selection
+- Add new events (max 30 characters) with a specific date, time, and color
+- Edit existing events including title, date and color
+- Delete existing events
+- Drag and drop events
+- Styled with CSS Modules
+- Deployable to GitHub Pages
 
-## React Compiler
+## Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+https://alozi.github.io/react-test-task-join-to-it/
 
-## Expanding the ESLint configuration
+## Usage
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Click on a day (or time slot in week/day view) to open the Event modal.
+- Fill in the event details: title, start/end time, and select a color.
+- Click Save to add the event to the calendar.
+- Click an existing event to edit or delete it.
+- Drag events to reschedule them.
+- Use the toolbar to navigate between days, weeks, months, or agenda view.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Folder Structure
 
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+src/
+├─ components/
+│  ├─ Calendar
+│  ├─ CustomToolbar
+│  └─ EventModal
+├─ assets/
+│  └─ fonts/
+│     └─ SourceSansPro-Regular
+├─ hooks/
+│  └─ useCalendarEvents
+├─ styles/
+│  └─ fonts
+├─ types/
+│  └─ event
+├─ utils/
+│  └─ calendarFormats
+├─ index
+└─ App
 ```
